@@ -31,15 +31,16 @@ try {
 
         $sql = 'INSERT INTO blogs (title, body, image) VALUES (:title, :body, :image)';
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([
+        $check = $stmt->execute([
             ':title' => $title,
             ':body' => $body,
             ':image' => $imagePath
         ]);
 
-        echo 'Blog yazısı uğurla əlavə edildi!';
+        if ($check) {
+            header('Location: blogs.php');
+        }
     }
 } catch (PDOException $e) {
     echo 'Xəta: ' . htmlspecialchars($e->getMessage());
 }
-?>

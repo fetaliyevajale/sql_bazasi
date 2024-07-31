@@ -28,6 +28,9 @@ try {
 <body>
     <div class="container mt-5">
         <h1>Blogs</h1>
+        <button>
+            <a href="inter.php">Add new blog</a>
+        </button>
         <div class="row">
             <?php foreach ($blogs as $blog): ?>
                 <div class="col-md-4 mb-4">

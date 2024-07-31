@@ -24,9 +24,10 @@ try {
 
         $sql = 'DELETE FROM blogs WHERE id = :id';
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([':id' => $id]);
-
-        echo 'Blog yazısı uğurla silindi!';
+        $check = $stmt->execute([':id' => $id]);
+        if($check){
+            header('Location: blogs.php');
+        }    
     }
 } catch (PDOException $e) {
     echo 'Xəta: ' . htmlspecialchars($e->getMessage());

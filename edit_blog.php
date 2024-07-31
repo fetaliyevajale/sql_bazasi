@@ -40,14 +40,16 @@ try {
 
         $sql = 'UPDATE blogs SET title = :title, body = :body, image = :image WHERE id = :id';
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([
+       $check = $stmt->execute([
             ':title' => $title,
             ':body' => $body,
             ':image' => $imagePath,
             ':id' => $id
         ]);
 
-        echo 'Blog yazısı uğurla yeniləndi!';
+        if($check){
+            header('Location: blogs.php');
+        } 
     }
 } catch (PDOException $e) {
     echo 'Xəta: ' . htmlspecialchars($e->getMessage());
