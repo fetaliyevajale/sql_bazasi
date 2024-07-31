@@ -1,3 +1,22 @@
+<?php
+$server = "localhost";
+$username = "root";
+$password = "";
+$databasename = "cinema";
+$dsn = "mysql:host=$server;dbname=$databasename";
+
+try {
+    $pdo = new PDO($dsn, $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = 'SELECT * FROM blogs';
+    $stmt = $pdo->query($sql);
+    $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo 'Xəta: ' . htmlspecialchars($e->getMessage());
+    $blogs = [];
+}
+?>
 <!DOCTYPE html>
 <html lang="az">
 <head>
@@ -19,6 +38,8 @@
                         <div class="card-body">
                             <h5 class="card-title"><?php echo htmlspecialchars($blog['title']); ?></h5>
                             <p class="card-text"><?php echo htmlspecialchars($blog['body']); ?></p>
+                            <a href="edit_blog.php?id=<?php echo $blog['id']; ?>" class="btn btn-warning">Redaktə et</a>
+                            <a href="delete_blog.php?id=<?php echo $blog['id']; ?>" class="btn btn-danger">Sil</a>
                         </div>
                     </div>
                 </div>
